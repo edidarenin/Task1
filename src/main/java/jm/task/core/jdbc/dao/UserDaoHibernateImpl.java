@@ -2,9 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
@@ -33,7 +31,7 @@ public class UserDaoHibernateImpl implements UserDao {
             System.out.println("Таблица users создана (Hibernate)");
 
         } catch (Exception e) {
-            System.out.println("Ошибка при создании таблицы: " + e.getMessage());
+            System.out.println("Ошибка при удалении таблицы: " + e.getMessage());
             e.printStackTrace();
         }
     }

@@ -19,9 +19,7 @@ public class UserServiceImpl implements UserService {
     }
 
 @Override
-    public void createUsersTable() {
-    userDao.createUsersTable();
-    }
+    public void createUsersTable() { userDao.createUsersTable();}
 
 @Override
     public void dropUsersTable() {
