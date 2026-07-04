@@ -27,7 +27,7 @@ public class Main {
             System.out.println(user);
         }
 
-        System.out.println("\n Удаление пользователя с id=2 ---");
+        System.out.println("\n Удаление пользователя с id=4 ---");
         userService.removeUserById(4L);
 
         System.out.println("\n Список после удаления ---");
@@ -47,6 +47,8 @@ public class Main {
         userService.dropUsersTable();
 
         System.out.println("\n Программа завершена!");
+
+        Util.closeSessionFactory();
     }
 }
 
