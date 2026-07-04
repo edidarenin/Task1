@@ -13,7 +13,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        UserDao userDao = new UserDaoJDBCImpl();
+        UserDao userDao = new UserDaoHibernateImpl();
         UserServiceImpl.setUserDao(userDao);
 
         UserService userService = new UserServiceImpl();
