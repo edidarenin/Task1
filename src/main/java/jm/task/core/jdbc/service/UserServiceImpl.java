@@ -19,6 +19,14 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
+    public static UserServiceImpl withHibernate() {
+        return new UserServiceImpl(new UserDaoHibernateImpl());
+    }
+
+    public static UserServiceImpl withJdbc() {
+        return new UserServiceImpl(new UserDaoJDBCImpl());
+    }
+
 @Override
     public void createUsersTable() {
     userDao.createUsersTable();
