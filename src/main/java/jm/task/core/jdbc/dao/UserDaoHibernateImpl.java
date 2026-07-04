@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -32,7 +33,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Таблица users создана (Hibernate)");
 
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println("Ошибка при создании таблицы: " + e.getMessage());
             e.printStackTrace();
         }
@@ -48,7 +49,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Таблица users удалена (Hibernate)");
 
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println("Ошибка при удалении таблицы: " + e.getMessage());
             e.printStackTrace();
         }
@@ -64,7 +65,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.persist(new User(name, lastName, age));
             transaction.commit();
             System.out.println("User добавлен");
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
@@ -82,7 +83,7 @@ public class UserDaoHibernateImpl implements UserDao {
             User user = session.get(User.class, id);
             if (user != null) session.delete(user);
             transaction.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
@@ -98,7 +99,7 @@ public class UserDaoHibernateImpl implements UserDao {
             System.out.println(" Получено пользователей: " + users.size() + " (Hibernate)");
             return users;
 
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println("Ошибка при получении списка пользователей: " + e.getMessage());
             e.printStackTrace();
             return List.of();
@@ -116,7 +117,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createNativeQuery("ALTER SEQUENCE users_id_seq RESTART WITH 1").executeUpdate();
             transaction.commit();
             System.out.println("Таблица очищена");
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {

@@ -9,16 +9,17 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private static UserDao userDao;
 
     public UserServiceImpl() {
-        this.userDao = new UserDaoHibernateImpl();
+        if (userDao == null) {
+            userDao = new UserDaoJDBCImpl();
+        }
     }
 
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public static void setUserDao(UserDao dao) {
+        userDao = dao;
     }
-
 @Override
     public void createUsersTable() {
     userDao.createUsersTable();
