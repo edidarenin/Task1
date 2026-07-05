@@ -59,7 +59,7 @@ public class Util {
                 properties.put(Environment.USER, USER);
                 properties.put(Environment.PASS, PASSWORD);
                 properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-                properties.put(Environment.SHOW_SQL, "true");
+                properties.put(Environment.SHOW_SQL, "false");
                 properties.put(Environment.HBM2DDL_AUTO, "update");
 
                 sessionFactory = new Configuration()
