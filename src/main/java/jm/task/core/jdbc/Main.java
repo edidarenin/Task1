@@ -1,5 +1,7 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
@@ -11,7 +13,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        UserService userService = UserServiceImpl.withHibernate();
+        UserDao userDao = new UserDaoHibernateImpl();
+        UserServiceImpl.setUserDao(userDao);
+
+        UserService userService = new UserServiceImpl();
 
         System.out.println("\n Создание таблицы ---");
         userService.createUsersTable();
