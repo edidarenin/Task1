@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     public static void setUserDao(UserDao dao) {
         userDao = dao;
     }
+
 @Override
     public void createUsersTable() {
     userDao.createUsersTable();

@@ -21,37 +21,47 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
+        Session session = null;
+        Transaction transaction = null;
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "id SERIAL PRIMARY KEY, " +
                 "name VARCHAR(45) NOT NULL, " +
                 "last_name VARCHAR(45) NOT NULL, " +
                 "age SMALLINT)";
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
             NativeQuery query = session.createNativeQuery(sql);
             query.executeUpdate();
             transaction.commit();
             System.out.println("Таблица users создана (Hibernate)");
 
         } catch (HibernateException e) {
-            System.out.println("Ошибка при создании таблицы: " + e.getMessage());
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
+        }finally {
+            if (session != null && session.isOpen()) session.close();
         }
     }
 
     @Override
     public void dropUsersTable() {
+        Session session = null;
+        Transaction transaction = null;
         String sql = "DROP TABLE IF EXISTS users";
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
             NativeQuery query = session.createNativeQuery(sql);
             query.executeUpdate();
             transaction.commit();
             System.out.println("Таблица users удалена (Hibernate)");
 
         } catch (HibernateException e) {
-            System.out.println("Ошибка при удалении таблицы: " + e.getMessage());
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
+        }finally {
+            if (session != null && session.isOpen()) session.close();
         }
     }
 
